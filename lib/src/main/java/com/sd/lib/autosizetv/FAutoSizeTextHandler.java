@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 
@@ -107,7 +108,12 @@ public class FAutoSizeTextHandler {
      */
     public void autoSize(int maxWidth, int maxHeight) {
         if (mIsAutoSizeEnable) {
+            final long startTime = System.currentTimeMillis();
             mAutoSizeTextHelper.autoSizeText(maxWidth, maxHeight);
+            Log.i(FAutoSizeTextHandler.class.getSimpleName(), "autoSize width:" + maxWidth
+                    + " height:" + maxHeight
+                    + " time:" + (System.currentTimeMillis() - startTime)
+            );
         }
     }
 
