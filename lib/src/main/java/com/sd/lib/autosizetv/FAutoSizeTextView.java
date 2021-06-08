@@ -27,8 +27,8 @@ public class FAutoSizeTextView extends AppCompatTextView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         saveMeasureSpec(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     private void saveMeasureSpec(int widthMeasureSpec, int heightMeasureSpec) {
