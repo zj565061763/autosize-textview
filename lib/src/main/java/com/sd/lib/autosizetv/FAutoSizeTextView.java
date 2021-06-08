@@ -26,14 +26,6 @@ public class FAutoSizeTextView extends AppCompatTextView {
     }
 
     @Override
-    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
-        super.onTextChanged(text, start, lengthBefore, lengthAfter);
-        if (mAutoSizeTextHandler != null) {
-            mAutoSizeRunnable.run();
-        }
-    }
-
-    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         saveMeasureSpec(widthMeasureSpec, heightMeasureSpec);
