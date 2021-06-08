@@ -1,14 +1,20 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
+
+def libGroupId = "com.sd.lib.android"
+def libArtifactId = "autosize-textview"
+def libVersionCode = 20210609
+def libVersionName = "1.0.0-alpha01"
 
 android {
     compileSdkVersion 30
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode libVersionCode
+        versionName libVersionName
     }
 
     buildTypes {
@@ -25,4 +31,26 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
+}
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = libGroupId
+                artifactId = libArtifactId
+                version = libVersionName
+
+                // 上传源码
+                artifact generateSourcesJar
+            }
+        }
+    }
 }
