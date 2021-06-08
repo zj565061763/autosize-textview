@@ -809,6 +809,14 @@ class AppCompatTextViewAutoSizeHelper {
             return false;
         }
 
+        // modify
+        final int lineCount = layout.getLineCount();
+        for (int i = 0; i < lineCount; i++) {
+            if (layout.getLineRight(i) > availableSpace.right) {
+                return false;
+            }
+        }
+
         return true;
     }
 
