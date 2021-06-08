@@ -32,15 +32,16 @@ public class FAutoSizeTextView extends AppCompatTextView {
     }
 
     private void saveMeasureSpec(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mLastWidthMeasureSpec == null || mLastHeightMeasureSpec == null) {
-            mLastWidthMeasureSpec = widthMeasureSpec;
-            mLastHeightMeasureSpec = heightMeasureSpec;
-            startAutoSize();
-            return;
+        boolean shouldAutoSize = false;
+        if (mLastWidthMeasureSpec == null ||
+                mLastHeightMeasureSpec == null) {
+            shouldAutoSize = true;
+        } else if (mLastWidthMeasureSpec != widthMeasureSpec ||
+                mLastHeightMeasureSpec != heightMeasureSpec) {
+            shouldAutoSize = true;
         }
 
-        if (mLastWidthMeasureSpec != widthMeasureSpec ||
-                mLastHeightMeasureSpec != heightMeasureSpec) {
+        if (shouldAutoSize) {
             mLastWidthMeasureSpec = widthMeasureSpec;
             mLastHeightMeasureSpec = heightMeasureSpec;
             startAutoSize();
