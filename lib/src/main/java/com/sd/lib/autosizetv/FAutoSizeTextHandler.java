@@ -37,12 +37,11 @@ public class FAutoSizeTextHandler {
      */
     public void init(@Nullable AttributeSet attrs, int defStyleAttr) {
         final Context context = mTextView.getContext();
-        final float textSize = mTextView.getTextSize();
 
         boolean autoSizeEnable = true;
         float stepInPx = dp2px(1, context);
         float minSizeInPx = dp2px(6, context);
-        float maxSizeInPx = Math.max(textSize, (minSizeInPx + stepInPx));
+        float maxSizeInPx = mTextView.getTextSize();
 
         if (attrs != null) {
             final TypedArray a = context.obtainStyledAttributes(attrs, androidx.appcompat.R.styleable.AppCompatTextView,
@@ -73,7 +72,7 @@ public class FAutoSizeTextHandler {
         setAutoSizeEnable(autoSizeEnable);
         setAutoSizeWithConfiguration(
                 (int) minSizeInPx,
-                (int) maxSizeInPx,
+                (int) Math.max(maxSizeInPx, (minSizeInPx + stepInPx)),
                 (int) stepInPx,
                 TypedValue.COMPLEX_UNIT_PX);
     }
