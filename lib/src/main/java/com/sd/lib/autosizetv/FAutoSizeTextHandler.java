@@ -39,9 +39,9 @@ public class FAutoSizeTextHandler {
         final Context context = mTextView.getContext();
 
         boolean autoSizeEnable = true;
-        float stepInPx = dp2px(1, context);
-        float minSizeInPx = dp2px(6, context);
-        float maxSizeInPx = mTextView.getTextSize();
+        float tempStep = 0;
+        float tempMin = 0;
+        float tempMax = mTextView.getTextSize();
 
         if (attrs != null) {
             final TypedArray a = context.obtainStyledAttributes(attrs, androidx.appcompat.R.styleable.AppCompatTextView,
@@ -56,24 +56,30 @@ public class FAutoSizeTextHandler {
                     autoSizeEnable = false;
                 }
             }
+
+            if (a.hasValue(R.styleable.AppCompatTextView_autoSizeStepGranularity)) {
+                tempStep = a.getDimension(R.styleable.AppCompatTextView_autoSizeStepGranularity, tempStep);
+            }
             if (a.hasValue(R.styleable.AppCompatTextView_autoSizeMinTextSize)) {
-                minSizeInPx = a.getDimension(R.styleable.AppCompatTextView_autoSizeMinTextSize, minSizeInPx);
+                tempMin = a.getDimension(R.styleable.AppCompatTextView_autoSizeMinTextSize, tempMin);
             }
             if (a.hasValue(R.styleable.AppCompatTextView_autoSizeMaxTextSize)) {
-                maxSizeInPx = a.getDimension(R.styleable.AppCompatTextView_autoSizeMaxTextSize, maxSizeInPx);
-            }
-            if (a.hasValue(R.styleable.AppCompatTextView_autoSizeStepGranularity)) {
-                stepInPx = a.getDimension(R.styleable.AppCompatTextView_autoSizeStepGranularity, stepInPx);
+                tempMax = a.getDimension(R.styleable.AppCompatTextView_autoSizeMaxTextSize, tempMax);
             }
 
             a.recycle();
         }
 
+
+        final float finalStep = tempStep > 0 ? tempStep : dp2px(1, context);
+        final float finalMin = tempMin > 0 ? tempMin : dp2px(6, context);
+        final float finalMax = Math.max(tempMax, (finalMin + finalStep));
+
         setAutoSizeEnable(autoSizeEnable);
         setAutoSizeWithConfiguration(
-                (int) minSizeInPx,
-                (int) Math.max(maxSizeInPx, (minSizeInPx + stepInPx)),
-                (int) stepInPx,
+                (int) finalMin,
+                (int) finalMax,
+                (int) finalStep,
                 TypedValue.COMPLEX_UNIT_PX);
     }
 
