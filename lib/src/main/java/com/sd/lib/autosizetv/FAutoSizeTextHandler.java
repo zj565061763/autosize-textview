@@ -96,6 +96,13 @@ public class FAutoSizeTextHandler {
                                              int maxSize,
                                              int step,
                                              int unit) {
+        Log.i(FAutoSizeTextHandler.class.getSimpleName(), "setAutoSizeWithConfiguration"
+                + " minSize:" + minSize
+                + " maxSize:" + maxSize
+                + " step:" + step
+                + " unit:" + unit
+        );
+
         getAutoSizeTextHelper().setAutoSizeTextTypeUniformWithConfiguration(minSize, maxSize, step,
                 unit);
     }
@@ -110,7 +117,8 @@ public class FAutoSizeTextHandler {
         if (mIsAutoSizeEnable) {
             final long startTime = System.currentTimeMillis();
             mAutoSizeTextHelper.autoSizeText(maxWidth, maxHeight);
-            Log.i(FAutoSizeTextHandler.class.getSimpleName(), "autoSize width:" + maxWidth
+            Log.i(FAutoSizeTextHandler.class.getSimpleName(), "autoSize"
+                    + " width:" + maxWidth
                     + " height:" + maxHeight
                     + " time:" + (System.currentTimeMillis() - startTime)
             );
