@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 public class FAutoSizeTextView extends AppCompatTextView {
+    private static final int VERY_BIG = 1024 * 1024;
+
     private final FAutoSizeTextHandler mAutoSizeTextHandler;
     private Integer mLastWidthMeasureSpec, mLastHeightMeasureSpec;
 
@@ -61,10 +63,18 @@ public class FAutoSizeTextView extends AppCompatTextView {
             }
 
             if (mAutoSizeTextHandler != null) {
-                final int width = MeasureSpec.getSize(mLastWidthMeasureSpec);
-                final int height = MeasureSpec.getSize(mLastHeightMeasureSpec);
+                final int width = getMeasureSpecSize(mLastWidthMeasureSpec);
+                final int height = getMeasureSpecSize(mLastHeightMeasureSpec);
                 mAutoSizeTextHandler.autoSize(width, height);
             }
         }
     };
+
+    private static int getMeasureSpecSize(int measureSpec) {
+        int size = MeasureSpec.getSize(measureSpec);
+        if (size == 0 && MeasureSpec.getMode(measureSpec) == MeasureSpec.UNSPECIFIED) {
+            size = VERY_BIG;
+        }
+        return size;
+    }
 }
