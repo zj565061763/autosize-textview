@@ -40,9 +40,9 @@ public class FAutoSizeTextHandler {
         final float textSize = mTextView.getTextSize();
 
         boolean autoSizeEnable = true;
-        float minSizeInPx = dp2px(6, context);
-        float maxSizeInPx = Math.max(textSize, minSizeInPx);
         float stepInPx = dp2px(1, context);
+        float minSizeInPx = dp2px(6, context);
+        float maxSizeInPx = Math.max(textSize, (minSizeInPx + stepInPx));
 
         if (attrs != null) {
             final TypedArray a = context.obtainStyledAttributes(attrs, androidx.appcompat.R.styleable.AppCompatTextView,
