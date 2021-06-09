@@ -39,8 +39,8 @@ public class FAutoSizeTextHandler {
         final Context context = mTextView.getContext();
 
         boolean autoSizeEnable = true;
-        float minSizeInPx = dp2px(5, context);
-        float maxSizeInPx = dp2px(100, context);
+        float minSizeInPx = dp2px(6, context);
+        float maxSizeInPx = dp2px(30, context);
         float stepInPx = dp2px(1, context);
 
         if (attrs != null) {
