@@ -119,6 +119,6 @@ public class FAutoSizeTextHandler {
 
     private static int dp2px(int dp, Context context) {
         final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return (int) (dp * displayMetrics.density);
+        return (int) (dp * displayMetrics.density + 0.5);
     }
 }
